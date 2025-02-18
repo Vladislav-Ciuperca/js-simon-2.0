@@ -6,14 +6,15 @@
 }
 
 
-.container_f {
+#container_f {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 70vh;
-    border: 2px dashed blue;
+    height: 100vh;
+    /* border: 2px dashed blue; */
     gap: 1rem;
+    position: relative;
 }
 
 button {
@@ -29,19 +30,19 @@ button {
     min-height: 10px;
     gap: 1rem;
     height: 55px;
-    border: 2px dashed red;
+    /* border: 2px dashed red; */
     flex-wrap: wrap;
     width: 400px;
 }
 
-#input_container{
+#input_container {
     display: flex;
     justify-content: start;
     align-items: start;
     min-height: 10px;
     gap: 1rem;
     height: 55px;
-    border: 2px dashed green;
+    /* border: 2px dashed green; */
     flex-wrap: wrap;
     width: 330px;
 }
@@ -56,31 +57,79 @@ button {
     align-items: center;
     scale: 0;
     transition: .3s ease-in-out;
+    user-select: none;
 }
-.input{
-        width: 50px;
-        aspect-ratio: 1;
-        border-radius: 15px;
-        border: 2px solid blue;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        scale: 0;
-        transition: .3s ease-in-out;
-        cursor: pointer;
+
+.input {
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 15px;
+    border: 2px solid blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scale: 0;
+    transition: .3s ease-in-out;
+    cursor: pointer;
+    user-select: none;
 }
-.grow{
+
+.grow {
     scale: 1 !important;
 }
 
-.shrink_text{
+.shrink_text {
     font-size: 0;
 }
 
-.disabled{
+.disabled {
     pointer-events: none;
 }
 
-.active{
+.active {
     background: rgba(255, 0, 0, 0.432);
 }
+
+.final_msg {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: .5s;
+    scale: 0;
+
+}
+
+#win {
+    background: linear-gradient(90deg,
+            rgba(255, 0, 0, 0.5),
+            rgba(255, 165, 0, 0.5),
+            rgba(255, 255, 0, 0.5),
+            rgba(0, 128, 0, 0.5),
+            rgba(0, 0, 255, 0.5),
+            rgba(75, 0, 130, 0.5),
+            rgba(238, 130, 238, 0.5));
+}
+
+#loss {
+
+    background-color: rgba(160, 160, 160, 0.801);
+    background-image: repeating-linear-gradient(45deg,
+            transparent 0px, transparent 40px,
+            rgba(0, 0, 0, 0.1) 40px, rgba(0, 0, 0, 0.1) 41px),
+        repeating-linear-gradient(-45deg,
+            transparent 0px, transparent 40px,
+            rgba(0, 0, 0, 0.1) 40px, rgba(0, 0, 0, 0.1) 41px),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><text x="10" y="30" font-size="30" transform="rotate(20,20,20)">😭</text></svg>');
+
+    background-size: 80px 80px;
+
+}
+
+h2 {
+    padding: 2rem;
+}
+

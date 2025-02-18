@@ -1,14 +1,20 @@
 
 let generate = document.getElementById("generate")
+let mainContainer = document.getElementById("container_f")
 let numContainer = document.getElementById("number_container")
 let inputContainer = document.getElementById("input_container")
 let clickIndex = 0
 let writeIndex = 0
 
+
 let numbers = []
 let guesses = []
 
 function generateNums() {
+    clickIndex = 0
+    writeIndex = 0
+    numbers = []
+    guesses = []
     function clearAllTimers() {
         let id = setTimeout(() => { }, 0);
         while (id--) {
@@ -17,7 +23,10 @@ function generateNums() {
         }
     }
     clearAllTimers()
+    win.classList.remove("grow")
+    loss.classList.remove("grow")
     numContainer.innerHTML = ""
+    inputContainer.innerHTML = ""
     numbers = []
     for (let i = 0; i < 6;) {
         let randomNum = Math.floor(Math.random() * 10 + 1)
@@ -68,6 +77,7 @@ function generateNums() {
                                     if (!guesses.includes(element.innerHTML)) {
                                         guesses.push(element.innerHTML)
                                         console.log(guesses);
+                                        console.log(numbers)
                                     }
                                     clickIndex++
                                     writeIndex = clickIndex
@@ -92,11 +102,29 @@ function generateNums() {
 
                                     guesses = guesses.filter(item => item !== element.innerHTML);
                                     console.log(guesses);
-
                                 }
 
                                 if (clickIndex == 6) {
-                                    console.log("tombola!!");
+
+                                    if (guesses.slice().sort().toString() == numbers.slice().sort().toString()) {
+                                        console.log("ciu sei");
+                                        let win = document.getElementById("win")
+                                        // setTimeout(() => {
+                                        win.classList.add("grow")
+                                        // }, 10);
+                                    } else {
+                                        console.log("noon broski");
+                                        let loss = document.getElementById("loss")
+                                        setTimeout(() => {
+                                            loss.classList.add("grow")
+                                        }, 10);
+                                    }
+
+                                    let replayBtn = document.getElementsByClassName("replay");
+
+                                    [...replayBtn].forEach(debug => {
+                                        debug.addEventListener("click", generateNums)
+                                    });
 
                                 }
                             })
