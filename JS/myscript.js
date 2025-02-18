@@ -17,7 +17,6 @@ function generateNums() {
         }
     }
     clearAllTimers()
-    // generate.classList.add("disabled")
     numContainer.innerHTML = ""
     numbers = []
     for (let i = 0; i < 6;) {
