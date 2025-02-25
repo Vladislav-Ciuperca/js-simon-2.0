@@ -34,7 +34,7 @@ function generateNums() {
         if (!numbers.includes(randomNum)) {
             numbers.push(randomNum)
             i++
-            console.log(randomNum)
+            // console.log(randomNum)
         }
     }
 
@@ -65,45 +65,59 @@ function generateNums() {
                     setTimeout(() => {
                         let allInputs = document.getElementsByClassName("input");
                         let allSquares = document.getElementsByClassName("square");
+                        /////////////////////////////////////////
+                        [...allInputs].forEach(singleInput => {
+                            singleInput.addEventListener("click", function () {
+                                // console.log(clickIndex);
 
-                        [...allInputs].forEach(element => {
-                            element.addEventListener("click", function () {
                                 // se un elemenon non ah active
-                                if (!element.classList.contains("active")) {
-                                    element.classList.add("active")
+                                if (!singleInput.classList.contains("active")) {
+                                    function checkForEmpty() {
+
+                                        if (!allSquares[clickIndex].innerHTML == "") {
+                                            clickIndex++
+                                            writeIndex = clickIndex
+                                            checkForEmpty()
+                                        } else {
+                                            return
+                                        }
+                                    }
+                                    checkForEmpty()
+
+                                    singleInput.classList.add("active")
                                     allSquares[writeIndex].classList.remove("shrink_text")
-                                    allSquares[writeIndex].innerHTML = element.innerHTML
+                                    allSquares[writeIndex].innerHTML = singleInput.innerHTML
                                     // controllo che non ci siano doppioni nell array e pusho
-                                    if (!guesses.includes(element.innerHTML)) {
-                                        guesses.push(element.innerHTML)
+                                    if (!guesses.includes(singleInput.innerHTML)) {
+                                        guesses.push(singleInput.innerHTML)
                                         console.log(guesses);
                                         console.log(numbers)
                                     }
                                     clickIndex++
                                     writeIndex = clickIndex
+                                    // se il singolinputy contains active#
                                 } else {
-                                    element.classList.remove("active")
+                                    singleInput.classList.remove("active")
                                     clickIndex--
-                                    console.log(clickIndex);
-
 
                                     [...allSquares].forEach((singleSquare, x) => {
                                         //se il numero e gia  presente
-                                        if (singleSquare.innerHTML == element.innerHTML) {
+                                        if (singleSquare.innerHTML == singleInput.innerHTML) {
                                             singleSquare.innerHTML = ""
-                                            singleSquare.classList.add("shrink_text")
-                                            writeIndex = x
-                                            //se il numero e nuovo
-                                        } else if (!singleSquare.innerHTML == element.innerHTML) {
+                                            singleSquare.classList.add("shrink_text");
+                                            // riporto clickindex a 0 cosi la funzione di chechEmpty parter dall inizio
+                                            clickIndex = 0
+                                            writeIndex = clickIndex
+                                        } else if (!singleSquare.innerHTML == singleInput.innerHTML) {
                                             allSquares[writeIndex].innerHTML = ""
                                             allSquares[writeIndex].classList.add("shrink_text")
                                         }
                                     });
 
-                                    guesses = guesses.filter(item => item !== element.innerHTML);
+                                    guesses = guesses.filter(item => item !== singleInput.innerHTML);
                                     console.log(guesses);
                                 }
-
+                                /////
                                 if (clickIndex == 6) {
 
                                     if (guesses.slice().sort().toString() == numbers.slice().sort().toString()) {
@@ -143,8 +157,17 @@ function displayNums(number) {
 }
 
 
-
-
-
-
 generate.addEventListener("click", generateNums)
+
+
+
+function debug() {
+    requestAnimationFrame(function () {
+        console.log(writeIndex);
+        debug()
+    })
+}
+debug()
+// setInterval(() => {
+//     console.log(clickIndex);
+// }, 100);
